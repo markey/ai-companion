@@ -10,6 +10,7 @@
     "build": "plasmo build"
   },
   "dependencies": {
+    "openai": "3.0.0",
     "plasmo": "0.55.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
