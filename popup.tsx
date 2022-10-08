@@ -5,8 +5,8 @@ import { Storage } from "@plasmohq/storage"
 
 
 function IndexPopup() {
-  console.log("Popup.tsx");
-  const [data, setData] = useState("")
+  const [data, setData] = useState("");
+  const [result, setResult] = useState("");
   const storage = new Storage();
 
   const DEFAULT_PARAMS = {
@@ -47,14 +47,17 @@ function IndexPopup() {
 
           const response = await fetch('https://api.openai.com/v1/completions', requestOptions);
           const data1 = await response.json();
+
           console.log(data1.choices[0].text);
+          setResult(data1.choices[0].text);
           return data1.choices[0].text;
         }
       }>
         Send to OpenAI
       </button>
       
-      <button onClick={(e) => { console.log("CLICK") }}>Log to console</button>
+      <label>Result:</label>
+      <textarea value={result} readOnly={true} />
 
       </div>
   )
