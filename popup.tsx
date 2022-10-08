@@ -2,19 +2,21 @@
 
 import { useState } from "react"
 import { Storage } from "@plasmohq/storage"
-import { Configuration, OpenAIApi } from "openai";
 
 
 function IndexPopup() {
   console.log("Popup.tsx");
-
   const [data, setData] = useState("")
   const storage = new Storage();
 
-  const configuration = new Configuration({
-    apiKey: storage.get("openai_key"),
-  });
-  const openai = new OpenAIApi(configuration);
+  const DEFAULT_PARAMS = {
+    "model": "text-davinci-002",
+    "temperature": 0.7,
+    "max_tokens": 256,
+    "top_p": 1,
+    "frequency_penalty": 0,
+    "presence_penalty": 0
+  }
   
   return (
     <div
@@ -30,13 +32,28 @@ function IndexPopup() {
 
       <input onChange={(e) => setData(e.target.value)} value={data} />
 
-      <button onClick={ async () => { 
-        await openai.createCompletion({
-          model: "text-davinci-002",
-          prompt: data,
-        }).then((response) => { console.log("OpenAI response: ", response) })
-      }}>Send to OpenAI</button>
+      <button onClick={ async () => {
+          const params_ = { ...DEFAULT_PARAMS, ...{"prompt": data} };
+          const requestOptions = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + await storage.get("openai_key"),
+            },
+            body: JSON.stringify(params_)
+          };
+          console.log(params_);
+          // console.log(requestOptions);
 
+          const response = await fetch('https://api.openai.com/v1/completions', requestOptions);
+          const data1 = await response.json();
+          console.log(data1.choices[0].text);
+          return data1.choices[0].text;
+        }
+      }>
+        Send to OpenAI
+      </button>
+      
       <button onClick={(e) => { console.log("CLICK") }}>Log to console</button>
 
       </div>
