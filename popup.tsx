@@ -49,18 +49,22 @@ function IndexPopup() {
         padding: 16,
       }}>
 
-      <h2>
-        Enter text to send to OpenAI:
-      </h2>
+      <h3>
+        Enter text to send to OpenAI
+      </h3>
 
-      <input autoFocus onChange={(e) => setData(e.target.value)} value={data} />
+      <label>Prompt:</label>
+      <input autoFocus  style={{ minHeight:50 }}
+        onChange={(e) => setData(e.target.value)} value={data}
+        onKeyDown={(e) => { if (e.key === "Enter") createCompletion() }}
+      />
 
       <button onClick={ createCompletion }>Send to OpenAI</button>
       
-      <h1></h1>
+      <h3></h3>
 
       <label>Result:</label>
-      <textarea value={result} readOnly={true} />
+      <textarea value={result} readOnly={true} style={{ minHeight:250 }} />
 
     </div>
   )
