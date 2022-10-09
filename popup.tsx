@@ -53,7 +53,7 @@ function IndexPopup() {
         Enter text to send to OpenAI:
       </h2>
 
-      <input onChange={(e) => setData(e.target.value)} value={data} />
+      <input autoFocus onChange={(e) => setData(e.target.value)} value={data} />
 
       <button onClick={ createCompletion }>Send to OpenAI</button>
       
