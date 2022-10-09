@@ -18,12 +18,35 @@ function IndexPopup() {
     "presence_penalty": 0
   }
   
+  const createCompletion = async () => {
+    const params_ = { ...DEFAULT_PARAMS, ...{"prompt": data} };
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + await storage.get("openai_key"),
+      },
+      body: JSON.stringify(params_)
+    };
+    console.log(params_);
+    // console.log(requestOptions);
+
+    const response = await fetch('https://api.openai.com/v1/completions', requestOptions);
+    const data1 = await response.json();
+
+    console.log(data1.choices[0].text);
+    setResult(data1.choices[0].text);
+    return data1.choices[0].text;
+  }
+
   return (
     <div
       style={{
         display: "flex",
         flexDirection: "column",
-        padding: 16
+        width: 450,
+        height: 450,
+        padding: 16,
       }}>
 
       <h2>
@@ -32,34 +55,14 @@ function IndexPopup() {
 
       <input onChange={(e) => setData(e.target.value)} value={data} />
 
-      <button onClick={ async () => {
-          const params_ = { ...DEFAULT_PARAMS, ...{"prompt": data} };
-          const requestOptions = {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + await storage.get("openai_key"),
-            },
-            body: JSON.stringify(params_)
-          };
-          console.log(params_);
-          // console.log(requestOptions);
-
-          const response = await fetch('https://api.openai.com/v1/completions', requestOptions);
-          const data1 = await response.json();
-
-          console.log(data1.choices[0].text);
-          setResult(data1.choices[0].text);
-          return data1.choices[0].text;
-        }
-      }>
-        Send to OpenAI
-      </button>
+      <button onClick={ createCompletion }>Send to OpenAI</button>
       
+      <h1></h1>
+
       <label>Result:</label>
       <textarea value={result} readOnly={true} />
 
-      </div>
+    </div>
   )
 }
 
