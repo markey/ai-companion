@@ -5,7 +5,10 @@ import { Storage } from "@plasmohq/storage"
 
 
 function IndexPopup() {
+ 
+
   const [data, setData] = useState("");
+  console.log("Selected text: " + selection);
   const [result, setResult] = useState("");
   const storage = new Storage();
 
