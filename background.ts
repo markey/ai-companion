@@ -1,4 +1,4 @@
-export {}
+import { Storage } from "@plasmohq/storage"
 
 
 console.log(
