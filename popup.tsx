@@ -1,13 +1,11 @@
-// OpenAI GPT-3 Prompt Generator Chrome extension
+// OpenAI GPT-3 Prompt Generator (Chrome extension)
 
 import { useState } from "react"
 import { Storage } from "@plasmohq/storage"
 
 let selection;
 
-
 function IndexPopup() {
- 
   const [data, setData] = useState("");
   const [buttonText, setButtonText] = useState("Generate Prompt");
   const [result, setResult] = useState("");
@@ -31,7 +29,6 @@ function IndexPopup() {
       }
     });  
   });
-  
 
   const DEFAULT_PARAMS = {
     "model": "text-davinci-002",
@@ -92,7 +89,6 @@ function IndexPopup() {
 
       <label>Result:</label>
       <textarea value={result} readOnly={true} style={{ minHeight:250 }} />
-
     </div>
   )
 }
