@@ -9,6 +9,7 @@ let selection;
 function IndexPopup() {
  
   const [data, setData] = useState("");
+  const [buttonText, setButtonText] = useState("Generate Prompt");
   const [result, setResult] = useState("");
   const storage = new Storage();
   
@@ -54,8 +55,10 @@ function IndexPopup() {
     console.log(params_);
     // console.log(requestOptions);
 
+    setButtonText("Generating...");
     const response = await fetch('https://api.openai.com/v1/completions', requestOptions);
     const data1 = await response.json();
+    setButtonText("Generate Prompt");
 
     console.log(data1.choices[0].text);
     setResult(data1.choices[0].text);
@@ -83,7 +86,7 @@ function IndexPopup() {
                                 e.key === "Enter") createCompletion() }}
       />
 
-      <button onClick={ createCompletion }>Send to OpenAI</button>
+      <button onClick={ createCompletion }>{buttonText}</button>
       
       <h3></h3>
 
