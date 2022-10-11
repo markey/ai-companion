@@ -31,6 +31,16 @@
       "storage",
       "tabs"
     ],
+    "web_accessible_resources": [
+      {
+        "resources": [
+          "get-selection.js"
+        ],
+        "matches": [
+          "https://www.plasmo.com/*"
+        ]
+      }
+    ],
     "host_permissions": [
       "https://*/*"
     ]
