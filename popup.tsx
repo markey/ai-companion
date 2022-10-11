@@ -3,28 +3,30 @@
 import { useState } from "react"
 import { Storage } from "@plasmohq/storage"
 
+let selection;
+
 
 function IndexPopup() {
  
   const [data, setData] = useState("");
   const [result, setResult] = useState("");
   const storage = new Storage();
- 
   
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     let tab = tabs[0];
     console.log("Active Tab: " + tab.id);
 
-    let selection;
     chrome.scripting.executeScript({
        target: { tabId: tab.id, allFrames: true },
        files: ["get-selection.js"],
     },
     (injectionResults) => {
       for (let result of injectionResults) {
-        selection = result.result;
-        console.log("Selected text: " + selection);
-        setData(selection);
+        if (result.result !== "" && result.result !== undefined && result.result !== selection) { 
+          selection = result.result;
+          console.log("Selected text: " + selection);
+          setData(selection);
+        }
       }
     });  
   });
