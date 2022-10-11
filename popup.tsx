@@ -6,11 +6,26 @@ import { Storage } from "@plasmohq/storage"
 
 function IndexPopup() {
  
-
   const [data, setData] = useState("");
-  console.log("Selected text: " + selection);
   const [result, setResult] = useState("");
   const storage = new Storage();
+ 
+  var sel = "";
+ 
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    let tab = tabs[0];
+    console.log("Active Tab: " + tab.id);
+  });
+
+  
+  // chrome.scripting.executeScript({ target: { tabId: tab, allFrames: true },
+  //                                  func: window.getSelection,
+  // },
+  // (injectionResults) => {
+  //   injectionResults[0].result;
+  // });  
+
+  // console.log("Selected text: " + selection);
 
   const DEFAULT_PARAMS = {
     "model": "text-davinci-002",

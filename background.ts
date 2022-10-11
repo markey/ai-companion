@@ -1,7 +1,11 @@
 import { Storage } from "@plasmohq/storage"
 
+// const storage = new Storage();
+// await storage.set("selection", "initial value");
 
-console.log(
-  "Live now; make now always the most precious time. Now will never come again."
-)
 
+  // const selection = window.getSelection();
+
+  // if (selection[0] !== "") {
+  //   await storage.set("selection", selection[0]);
+  // }
