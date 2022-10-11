@@ -79,7 +79,8 @@ function IndexPopup() {
       <label>Prompt:</label>
       <textarea autoFocus style={{ minHeight:50 }}
         onChange={(e) => setData(e.target.value)} value={data}
-        onKeyDown={(e) => { if (e.key === "Enter") createCompletion() }}
+        onKeyDown={(e) => { if (e.getModifierState("Control") &&
+                                e.key === "Enter") createCompletion() }}
       />
 
       <button onClick={ createCompletion }>Send to OpenAI</button>
