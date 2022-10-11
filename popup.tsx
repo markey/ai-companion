@@ -24,6 +24,7 @@ function IndexPopup() {
       for (let result of injectionResults) {
         selection = result.result;
         console.log("Selected text: " + selection);
+        setData(selection);
       }
     });  
   });
