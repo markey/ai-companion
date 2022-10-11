@@ -10,24 +10,24 @@ function IndexPopup() {
   const [buttonText, setButtonText] = useState("Generate Prompt");
   const [result, setResult] = useState("");
   const storage = new Storage();
-  
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     let tab = tabs[0];
     console.log("Active Tab: " + tab.id);
 
     chrome.scripting.executeScript({
-       target: { tabId: tab.id, allFrames: true },
-       files: ["get-selection.js"],
+      target: { tabId: tab.id, allFrames: true },
+      files: ["get-selection.js"],
     },
-    (injectionResults) => {
-      for (let result of injectionResults) {
-        if (result.result !== "" && result.result !== undefined && result.result !== selection) { 
-          selection = result.result;
-          console.log("Selected text: " + selection);
-          setData(selection);
+      (injectionResults) => {
+        for (let result of injectionResults) {
+          if (result.result !== "" && result.result !== undefined && result.result !== selection) {
+            selection = result.result;
+            console.log("Selected text: " + selection);
+            setData(selection);
+          }
         }
-      }
-    });  
+      });
   });
 
   const DEFAULT_PARAMS = {
@@ -38,9 +38,9 @@ function IndexPopup() {
     "frequency_penalty": 0,
     "presence_penalty": 0
   }
-  
+
   const createCompletion = async () => {
-    const params_ = { ...DEFAULT_PARAMS, ...{"prompt": data} };
+    const params_ = { ...DEFAULT_PARAMS, ...{ "prompt": data } };
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -77,18 +77,20 @@ function IndexPopup() {
       </h3>
 
       <label>Prompt:</label>
-      <textarea autoFocus style={{ minHeight:50 }}
+      <textarea autoFocus style={{ minHeight: 50 }}
         onChange={(e) => setData(e.target.value)} value={data}
-        onKeyDown={(e) => { if (e.getModifierState("Control") &&
-                                e.key === "Enter") createCompletion() }}
+        onKeyDown={(e) => {
+          if (e.getModifierState("Control") &&
+            e.key === "Enter") createCompletion()
+        }}
       />
 
-      <button onClick={ createCompletion }>{buttonText}</button>
-      
+      <button onClick={createCompletion}>{buttonText}</button>
+
       <h3></h3>
 
       <label>Result:</label>
-      <textarea value={result} readOnly={true} style={{ minHeight:250 }} />
+      <textarea value={result} readOnly={true} style={{ minHeight: 250 }} />
     </div>
   )
 }
