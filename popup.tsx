@@ -77,7 +77,7 @@ function IndexPopup() {
       </h3>
 
       <label>Prompt:</label>
-      <input autoFocus  style={{ minHeight:50 }}
+      <textarea autoFocus style={{ minHeight:50 }}
         onChange={(e) => setData(e.target.value)} value={data}
         onKeyDown={(e) => { if (e.key === "Enter") createCompletion() }}
       />
