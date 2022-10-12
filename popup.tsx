@@ -68,17 +68,13 @@ function IndexPopup() {
   }
 
   return (
-    <Stack minWidth={400}>
+    <Stack minWidth={400} spacing={2}>
 
       <Typography variant="h5">
         Enter text to send to OpenAI
       </Typography>
 
-      <Typography variant="h6">
-        Prompt:
-      </Typography>
-
-      <TextField multiline autoFocus margin="dense" minRows={3}
+      <TextField label="Prompt" multiline autoFocus minRows={3}
         onChange={(e) => setData(e.target.value)} value={data}
         onKeyDown={(e) => {
           if (e.getModifierState("Control") &&
@@ -88,11 +84,7 @@ function IndexPopup() {
 
       <Button variant="contained" onClick={createCompletion}>{buttonText}</Button>
 
-      <Typography variant="h6">
-        Result:
-      </Typography>
-
-      <TextField multiline margin="dense" InputProps={{ readOnly: true }} disabled value={result} minRows={6} />
+      <TextField label="Result" disabled multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
 
     </Stack>
   )
