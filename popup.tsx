@@ -1,13 +1,13 @@
 // OpenAI GPT-3 Prompt Generator (Chrome extension)
 
-import Button from "@mui/material/Button"
-import Divider from "@mui/material/Divider"
-import Input from "@mui/material/Input"
-import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
-import { useState } from "react"
-import { Storage } from "@plasmohq/storage"
-import { TextField } from "@mui/material"
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Input from "@mui/material/Input";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { Storage } from "@plasmohq/storage";
+import { TextField } from "@mui/material";
 
 let selection;
 
@@ -43,7 +43,7 @@ function IndexPopup() {
     "top_p": 1,
     "frequency_penalty": 0,
     "presence_penalty": 0
-  }
+  };
 
   const createCompletion = async () => {
     const params_ = { ...DEFAULT_PARAMS, ...{ "prompt": data } };
@@ -63,10 +63,15 @@ function IndexPopup() {
     const data1 = await response.json();
     setButtonText("Generate Prompt");
 
-    console.log(data1.choices[0].text);
-    setResult(data1.choices[0].text);
-    return data1.choices[0].text;
-  }
+    console.log("Result: " + data1.choices[0].text);
+
+    const txt = data1.choices[0].text
+      .split(/\r?\n/) // Split input text into an array of lines
+      .filter(line => line.trim() !== "") // Filter out lines that are empty or contain only whitespace
+      .join("\n"); // Join line array into a string
+
+    setResult(txt);
+  };
 
   return (
     <Stack minWidth={400} spacing={2}>
@@ -79,18 +84,18 @@ function IndexPopup() {
         onChange={(e) => setData(e.target.value)} value={data}
         onKeyDown={(e) => {
           if (e.getModifierState("Control") &&
-            e.key === "Enter") createCompletion()
+            e.key === "Enter") createCompletion();
         }}
       />
 
       <Button variant="contained" onClick={createCompletion}>{buttonText}</Button>
 
       <Divider />
-      
+
       <TextField label="Result" multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
 
     </Stack>
-  )
+  );
 }
 
-export default IndexPopup
+export default IndexPopup;
