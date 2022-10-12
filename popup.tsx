@@ -86,8 +86,12 @@ function IndexPopup() {
       <TextField label="Prompt" multiline autoFocus minRows={3}
         onChange={(e) => setData(e.target.value)} value={data}
         onKeyDown={(e) => {
-          if (e.getModifierState("Control") &&
-            e.key === "Enter") createCompletion();
+          if (e.getModifierState("Control") && e.key === "Enter") {
+            createCompletion();
+          }
+          if (e.getModifierState("Control") && e.key === "c") {
+            navigator.clipboard.writeText(result); // Copy to clipboard
+          }
         }}
       />
 
@@ -95,7 +99,7 @@ function IndexPopup() {
 
       <Divider />
 
-      <TextField label="Result" multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
+      <TextField label="Result  (ctrl+c ➔ clipboard)" multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
 
     </Stack>
   );

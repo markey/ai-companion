@@ -32,6 +32,8 @@
   "manifest": {
     "permissions": [
       "activeTab",
+      "clipboardRead",
+      "clipboardWrite",
       "scripting",
       "storage",
       "tabs"
