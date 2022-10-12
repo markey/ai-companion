@@ -1,6 +1,7 @@
 // OpenAI GPT-3 Prompt Generator (Chrome extension)
 
 import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
@@ -84,6 +85,8 @@ function IndexPopup() {
 
       <Button variant="contained" onClick={createCompletion}>{buttonText}</Button>
 
+      <Divider />
+      
       <TextField label="Result" disabled multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
 
     </Stack>
