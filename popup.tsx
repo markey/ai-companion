@@ -87,7 +87,7 @@ function IndexPopup() {
 
       <Divider />
       
-      <TextField label="Result" disabled multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
+      <TextField label="Result" multiline InputProps={{ readOnly: true }} value={result} minRows={6} />
 
     </Stack>
   )
