@@ -10,12 +10,17 @@
     "build": "plasmo build"
   },
   "dependencies": {
+    "@emotion/cache": "11.10.3",
+    "@emotion/react": "11.10.4",
+    "@emotion/styled": "11.10.4",
+    "@mui/material": "5.10.8",
     "@plasmohq/storage": "0.12.1",
     "plasmo": "0.55.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "7.19.3",
     "@plasmohq/prettier-plugin-sort-imports": "1.2.2",
     "@types/chrome": "0.0.196",
     "@types/node": "18.7.15",

@@ -1,7 +1,12 @@
 // OpenAI GPT-3 Prompt Generator (Chrome extension)
 
+import Button from "@mui/material/Button"
+import Input from "@mui/material/Input"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
 import { useState } from "react"
 import { Storage } from "@plasmohq/storage"
+import { TextField } from "@mui/material"
 
 let selection;
 
@@ -63,21 +68,17 @@ function IndexPopup() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        width: 450,
-        height: 450,
-        padding: 16,
-      }}>
+    <Stack minWidth={400}>
 
-      <h3>
+      <Typography variant="h5">
         Enter text to send to OpenAI
-      </h3>
+      </Typography>
 
-      <label>Prompt:</label>
-      <textarea autoFocus style={{ minHeight: 50 }}
+      <Typography variant="h6">
+        Prompt:
+      </Typography>
+
+      <TextField multiline autoFocus margin="dense" minRows={3}
         onChange={(e) => setData(e.target.value)} value={data}
         onKeyDown={(e) => {
           if (e.getModifierState("Control") &&
@@ -85,13 +86,15 @@ function IndexPopup() {
         }}
       />
 
-      <button onClick={createCompletion}>{buttonText}</button>
+      <Button variant="contained" onClick={createCompletion}>{buttonText}</Button>
 
-      <h3></h3>
+      <Typography variant="h6">
+        Result:
+      </Typography>
 
-      <label>Result:</label>
-      <textarea value={result} readOnly={true} style={{ minHeight: 250 }} />
-    </div>
+      <TextField multiline margin="dense" InputProps={{ readOnly: true }} disabled value={result} minRows={6} />
+
+    </Stack>
   )
 }
 
