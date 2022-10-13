@@ -1,20 +1,22 @@
-// OpenAI GPT-3 Prompt Generator (Chrome extension)
+// OpenAI GPT-3 Text Generator (Chrome extension)
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
 import Stack from "@mui/material/Stack"
 import TextField from "@mui/material/TextField"
+import Tooltip from "@mui/material/Tooltip"
 import Typography from "@mui/material/Typography"
 import { useState } from "react"
 
 import { Storage } from "@plasmohq/storage"
 
-let selection
+let selection = ""
 
 function IndexPopup() {
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState("Generate Prompt")
   const [result, setResult] = useState("")
+
   const storage = new Storage()
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -33,7 +35,7 @@ function IndexPopup() {
             result.result !== undefined &&
             result.result !== selection
           ) {
-            selection = result.result
+            selection = result.result as string
             console.log("Selected text: " + selection)
             setPrompt(selection)
           }
