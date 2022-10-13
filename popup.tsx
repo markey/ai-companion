@@ -12,7 +12,7 @@ import { Storage } from "@plasmohq/storage"
 let selection
 
 function IndexPopup() {
-  const [data, setData] = useState("")
+  const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState("Generate Prompt")
   const [result, setResult] = useState("")
   const storage = new Storage()
@@ -35,14 +35,14 @@ function IndexPopup() {
           ) {
             selection = result.result
             console.log("Selected text: " + selection)
-            setData(selection)
+            setPrompt(selection)
           }
         }
       }
     )
   })
 
-  const DEFAULT_PARAMS = {
+  const DEFAULT_OPENAI_PARAMS = {
     model: "text-davinci-002",
     temperature: 0.7,
     max_tokens: 256,
@@ -51,17 +51,18 @@ function IndexPopup() {
     presence_penalty: 0
   }
 
+  // Generate a prompt using OpenAI's GPT-3 API
   const createCompletion = async () => {
-    const params_ = { ...DEFAULT_PARAMS, ...{ prompt: data } }
+    const params = { ...DEFAULT_OPENAI_PARAMS, ...{ prompt: prompt } }
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + (await storage.get("openai_key"))
       },
-      body: JSON.stringify(params_)
+      body: JSON.stringify(params)
     }
-    console.log(params_)
+    console.log(params)
     // console.log(requestOptions);
 
     setButtonText("Generating...")
@@ -69,17 +70,16 @@ function IndexPopup() {
       "https://api.openai.com/v1/completions",
       requestOptions
     )
-    const data1 = await response.json()
     setButtonText("Generate Prompt")
 
-    console.log("Result: " + data1.choices[0].text)
+    const responseJson = await response.json()
 
-    const txt = data1.choices[0].text
+    const filteredText = responseJson.choices[0].text
       .split(/\r?\n/) // Split input text into an array of lines
       .filter((line) => line.trim() !== "") // Filter out lines that are empty or contain only whitespace
       .join("\n") // Join line array into a string
 
-    setResult(txt)
+    setResult(filteredText)
   }
 
   return (
@@ -91,8 +91,8 @@ function IndexPopup() {
         multiline
         autoFocus
         minRows={3}
-        onChange={(e) => setData(e.target.value)}
-        value={data}
+        onChange={(e) => setPrompt(e.target.value)}
+        value={prompt}
         onKeyDown={(e) => {
           if (e.getModifierState("Control") && e.key === "Enter") {
             createCompletion()
