@@ -83,7 +83,7 @@ function IndexPopup() {
   }
 
   return (
-    <Stack minWidth={400} spacing={2}>
+    <Stack minWidth={450} spacing={2}>
       <Typography variant="h5">Enter text to send to OpenAI</Typography>
 
       <TextField
