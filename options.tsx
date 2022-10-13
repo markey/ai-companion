@@ -8,7 +8,6 @@ import Typography from "@mui/material/Typography"
 import { useStorage } from "@plasmohq/storage/hook"
 
 function OptionsIndex() {
-  // const [data, setData] = useState("")
   const [key, setKey] = useStorage("openai_key")
 
   return (
