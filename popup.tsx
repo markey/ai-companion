@@ -98,7 +98,11 @@ function IndexPopup() {
   }
 
   return (
-    <Stack minWidth={450} spacing={2} flexGrow>
+    <Stack
+      direction="column"
+      minWidth={450}
+      spacing={2}
+      justifyContent="flex-start">
       <Typography variant="h5">OpenAI Text Generator</Typography>
 
       <TextField
