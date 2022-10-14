@@ -25,7 +25,6 @@ function IndexPopup() {
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     let tab = tabs[0]
-    console.log("Active Tab: " + tab.id)
 
     chrome.scripting.executeScript(
       {
@@ -60,7 +59,8 @@ function IndexPopup() {
   const createCompletion = async () => {
     const params = {
       ...DEFAULT_OPENAI_PARAMS,
-      ...{ prompt: prompt.replaceAll("{SELECTION}", selection) }
+      ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
+      ...{ temperature: temperature }
     }
     const requestOptions = {
       method: "POST",
@@ -88,6 +88,13 @@ function IndexPopup() {
       .join("\n") // Join line array into a string
 
     setResult(filteredText)
+  }
+
+  const handleTemperatureChange = (
+    event: Event,
+    newValue: number | number[]
+  ) => {
+    setTemperature(newValue as number)
   }
 
   return (
@@ -129,6 +136,7 @@ function IndexPopup() {
         marks
         valueLabelDisplay="auto"
         defaultValue={temperature}
+        onChange={handleTemperatureChange}
       />
 
       <Button variant="contained" onClick={createCompletion}>
