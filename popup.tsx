@@ -37,7 +37,7 @@ function IndexPopup() {
           ) {
             selection = result.result as string
             console.log("Selected text: " + selection)
-            setPrompt(selection)
+            setPrompt("{SELECTION}")
           }
         }
       }
@@ -55,7 +55,10 @@ function IndexPopup() {
 
   // Generate a prompt using OpenAI's GPT-3 API
   const createCompletion = async () => {
-    const params = { ...DEFAULT_OPENAI_PARAMS, ...{ prompt: prompt } }
+    const params = {
+      ...DEFAULT_OPENAI_PARAMS,
+      ...{ prompt: prompt.replaceAll("{SELECTION}", selection) }
+    }
     const requestOptions = {
       method: "POST",
       headers: {
@@ -86,13 +89,22 @@ function IndexPopup() {
 
   return (
     <Stack minWidth={450} spacing={2}>
-      <Typography variant="h5">Enter text to send to OpenAI</Typography>
+      <Typography variant="h5">AI Text Generator</Typography>
+
+      <TextField
+        label="Selection"
+        multiline
+        disabled
+        InputProps={{ readOnly: true }}
+        value={selection}
+        minRows={2}
+      />
 
       <TextField
         label="Prompt"
         multiline
         autoFocus
-        minRows={3}
+        minRows={2}
         onChange={(e) => setPrompt(e.target.value)}
         value={prompt}
         onKeyDown={(e) => {
@@ -112,7 +124,7 @@ function IndexPopup() {
       <Divider />
 
       <TextField
-        label="Result  (ctrl+c ➔ clipboard)"
+        label="Result (ctrl+c ➔ clipboard)"
         multiline
         InputProps={{ readOnly: true }}
         value={result}
