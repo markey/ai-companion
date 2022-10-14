@@ -10,11 +10,13 @@ import { useState } from "react"
 
 import { Storage } from "@plasmohq/storage"
 
+const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
+
 let selection = ""
 
 function IndexPopup() {
   const [prompt, setPrompt] = useState("")
-  const [buttonText, setButtonText] = useState("Generate Prompt")
+  const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
 
   const storage = new Storage()
@@ -75,7 +77,7 @@ function IndexPopup() {
       "https://api.openai.com/v1/completions",
       requestOptions
     )
-    setButtonText("Generate Prompt")
+    setButtonText(GENERATE_BUTTON_TEXT)
 
     const responseJson = await response.json()
 
@@ -89,7 +91,7 @@ function IndexPopup() {
 
   return (
     <Stack minWidth={450} spacing={2}>
-      <Typography variant="h5">AI Text Generator</Typography>
+      <Typography variant="h5">OpenAI Text Generator</Typography>
 
       <TextField
         label="Selection"
@@ -97,14 +99,14 @@ function IndexPopup() {
         disabled
         InputProps={{ readOnly: true }}
         value={selection}
-        minRows={2}
+        minRows={3}
       />
 
       <TextField
         label="Prompt"
         multiline
         autoFocus
-        minRows={2}
+        minRows={3}
         onChange={(e) => setPrompt(e.target.value)}
         value={prompt}
         onKeyDown={(e) => {
@@ -124,7 +126,7 @@ function IndexPopup() {
       <Divider />
 
       <TextField
-        label="Result (ctrl+c ➔ clipboard)"
+        label="Result (Ctrl+C➔Clipboard)"
         multiline
         InputProps={{ readOnly: true }}
         value={result}
