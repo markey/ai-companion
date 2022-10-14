@@ -2,6 +2,7 @@
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
+import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
 import TextField from "@mui/material/TextField"
 import Tooltip from "@mui/material/Tooltip"
@@ -18,6 +19,7 @@ function IndexPopup() {
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
+  const [temperature, setTemperature] = useState(0.5)
 
   const storage = new Storage()
 
@@ -48,7 +50,6 @@ function IndexPopup() {
 
   const DEFAULT_OPENAI_PARAMS = {
     model: "text-davinci-002",
-    temperature: 0.7,
     max_tokens: 256,
     top_p: 1,
     frequency_penalty: 0,
@@ -90,7 +91,7 @@ function IndexPopup() {
   }
 
   return (
-    <Stack minWidth={450} spacing={2}>
+    <Stack minWidth={450} spacing={2} flexGrow>
       <Typography variant="h5">OpenAI Text Generator</Typography>
 
       <TextField
@@ -99,14 +100,14 @@ function IndexPopup() {
         disabled
         InputProps={{ readOnly: true }}
         value={selection}
-        minRows={3}
+        minRows={1}
       />
 
       <TextField
         label="Prompt"
         multiline
         autoFocus
-        minRows={3}
+        minRows={2}
         onChange={(e) => setPrompt(e.target.value)}
         value={prompt}
         onKeyDown={(e) => {
@@ -117,6 +118,17 @@ function IndexPopup() {
             navigator.clipboard.writeText(result) // Copy to clipboard
           }
         }}
+      />
+
+      <Typography variant="subtitle2">Temperature</Typography>
+
+      <Slider
+        step={0.1}
+        min={0.1}
+        max={1.0}
+        marks
+        valueLabelDisplay="auto"
+        defaultValue={temperature}
       />
 
       <Button variant="contained" onClick={createCompletion}>
