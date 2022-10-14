@@ -136,7 +136,7 @@ function IndexPopup() {
       <Slider
         size="small"
         step={0.1}
-        min={0.1}
+        min={0.0}
         max={1.0}
         marks
         valueLabelDisplay="auto"
