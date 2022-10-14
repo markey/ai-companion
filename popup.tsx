@@ -130,6 +130,7 @@ function IndexPopup() {
       <Typography variant="subtitle2">Temperature</Typography>
 
       <Slider
+        size="small"
         step={0.1}
         min={0.1}
         max={1.0}
