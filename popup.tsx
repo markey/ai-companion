@@ -131,18 +131,20 @@ function IndexPopup() {
         }}
       />
 
-      <Typography variant="subtitle2">Temperature</Typography>
+      <Stack direction="row" spacing={2} justifyContent="flex-start">
+        <Typography variant="subtitle2">Temperature:</Typography>
 
-      <Slider
-        size="small"
-        step={0.1}
-        min={0.0}
-        max={1.0}
-        marks
-        valueLabelDisplay="auto"
-        defaultValue={temperature}
-        onChange={handleTemperatureChange}
-      />
+        <Slider
+          size="small"
+          step={0.1}
+          min={0.0}
+          max={1.0}
+          marks
+          valueLabelDisplay="auto"
+          defaultValue={temperature}
+          onChange={handleTemperatureChange}
+        />
+      </Stack>
 
       <Button variant="contained" onClick={createCompletion}>
         {buttonText}
