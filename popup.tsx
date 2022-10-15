@@ -24,11 +24,11 @@ function IndexPopup() {
   const storage = new Storage()
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    let tab = tabs[0]
+    const activeTab = tabs[0]
 
     chrome.scripting.executeScript(
       {
-        target: { tabId: tab.id, allFrames: true },
+        target: { tabId: activeTab.id, allFrames: true },
         files: ["get-selection.js"]
       },
       (injectionResults) => {
