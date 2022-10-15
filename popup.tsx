@@ -15,6 +15,13 @@ const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
 
 let selection = ""
 
+// Returns the selected text.
+// Note: This is executed in the context of the active tab.
+// @return {string} The selected text
+function getTextSelection() {
+  return window.getSelection().toString()
+}
+
 function IndexPopup() {
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
@@ -29,7 +36,7 @@ function IndexPopup() {
     chrome.scripting.executeScript(
       {
         target: { tabId: activeTab.id, allFrames: true },
-        files: ["get-selection.js"]
+        func: getTextSelection
       },
       (injectionResults) => {
         for (let result of injectionResults) {
@@ -123,7 +130,11 @@ function IndexPopup() {
       />
 
       <TextField
-        label={selection === "" ? "Selected Text (None)" : "Selected Text {SELECTION}"}
+        label={
+          selection === ""
+            ? "Selected Text (None)"
+            : "Selected Text {SELECTION}"
+        }
         multiline
         disabled
         InputProps={{ readOnly: true }}
