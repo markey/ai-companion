@@ -106,15 +106,6 @@ function IndexPopup() {
       <Typography variant="h5">OpenAI Text Generator</Typography>
 
       <TextField
-        label="Selection"
-        multiline
-        disabled
-        InputProps={{ readOnly: true }}
-        value={selection}
-        minRows={1}
-      />
-
-      <TextField
         label="Prompt"
         multiline
         autoFocus
@@ -129,6 +120,15 @@ function IndexPopup() {
             navigator.clipboard.writeText(result) // Copy to clipboard
           }
         }}
+      />
+
+      <TextField
+        label="Selected Text"
+        multiline
+        disabled
+        InputProps={{ readOnly: true }}
+        value={selection}
+        minRows={1}
       />
 
       <Stack direction="row" spacing={2} justifyContent="flex-start">
