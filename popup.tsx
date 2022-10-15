@@ -1,4 +1,7 @@
-// OpenAI GPT-3 Text Generator (Chrome extension)
+/**
+ *  OpenAI GPT-3 Text Generator (Chrome extension)
+ *
+ */
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
@@ -15,14 +18,16 @@ const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
 
 let selection = ""
 
-// Returns the selected text.
-// Note: This is executed in the context of the active tab.
-// @return {string} The selected text
-function getTextSelection() {
+/**
+ * Returns the selected text.
+ * Note: This is executed in the context of the active tab.
+ * @return {string} The selected text
+ */
+function getTextSelection(): string {
   return window.getSelection().toString()
 }
 
-function IndexPopup() {
+function IndexPopup(): JSX.Element {
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
@@ -63,7 +68,7 @@ function IndexPopup() {
   }
 
   // Generate a prompt using OpenAI's GPT-3 API
-  const createCompletion = async () => {
+  async function createCompletion() {
     const params = {
       ...DEFAULT_OPENAI_PARAMS,
       ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
