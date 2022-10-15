@@ -123,7 +123,7 @@ function IndexPopup() {
       />
 
       <TextField
-        label="Selected Text"
+        label={selection === "" ? "Selected Text (None)" : "Selected Text {SELECTION}"}
         multiline
         disabled
         InputProps={{ readOnly: true }}
