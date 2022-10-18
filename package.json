@@ -38,6 +38,11 @@
       "storage",
       "tabs"
     ],
+    "sandbox": {
+      "pages": [
+        "~sandbox.html"
+      ]
+    },
     "host_permissions": [
       "https://*/*"
     ]

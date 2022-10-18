@@ -107,6 +107,13 @@ function IndexPopup(): JSX.Element {
     newValue: number | number[]
   ) => {
     setTemperature(newValue as number)
+
+    const iframe = document.getElementById("sandbox") as HTMLIFrameElement
+    window.addEventListener("message", (event) => {
+      console.log("EVAL output: " + event.data)
+    })
+    iframe.contentWindow.postMessage("10 + 20", "*")
+  
   }
 
   return (
@@ -175,6 +182,11 @@ function IndexPopup(): JSX.Element {
         value={result}
         minRows={6}
       />
+
+      <iframe
+        src="up_/sandbox.html"
+        id="sandbox"
+        style={{ display: "none" }}></iframe>
     </Stack>
   )
 }
