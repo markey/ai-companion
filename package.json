@@ -3,7 +3,7 @@
   "displayName": "Ai reworder extension",
   "version": "0.0.0",
   "description": "A OpenAI GPT-3 AI extension.",
-  "author": "krets",
+  "author": "Mark Kretschmann <kretschmann@kde.org>",
   "packageManager": "pnpm@7.13.1",
   "scripts": {
     "dev": "plasmo dev",

@@ -1,3 +1,9 @@
+/**
+ *  OpenAI GPT-3 Text Generator (Chrome extension)
+ *
+ * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
+ *
+ */
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
