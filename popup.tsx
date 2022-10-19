@@ -109,13 +109,18 @@ function IndexPopup(): JSX.Element {
     newValue: number | number[]
   ) => {
     setTemperature(newValue as number)
+  }
 
+  /**
+   * Evaluate code in sandboxed iframe.
+   * @param {string} code The code to evaluate
+   */
+  function evalInSandbox(code: string): void {
     const iframe = document.getElementById("sandbox") as HTMLIFrameElement
     window.addEventListener("message", (event) => {
       console.log("EVAL output: " + event.data)
     })
-    iframe.contentWindow.postMessage("10 + 20", "*")
-  
+    iframe.contentWindow.postMessage(code, "*")
   }
 
   return (
