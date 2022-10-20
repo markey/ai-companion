@@ -4,9 +4,11 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
+import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import Input from "@mui/material/Input"
+import Modal from "@mui/material/Modal"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
 import TextField from "@mui/material/TextField"
@@ -33,6 +35,7 @@ function IndexPopup(): JSX.Element {
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
+  const [error, setError] = useState("")
   const [temperature, setTemperature] = useState(0.5)
 
   const storage = new Storage()
@@ -95,6 +98,11 @@ function IndexPopup(): JSX.Element {
     setButtonText(GENERATE_BUTTON_TEXT)
 
     const responseJson = await response.json()
+    // Check for errors
+    if (responseJson.error) {
+      setError(responseJson.error)
+      return
+    }
 
     const filteredText = responseJson.choices[0].text
       .split(/\r?\n/) // Split input text into an array of lines
@@ -129,6 +137,26 @@ function IndexPopup(): JSX.Element {
       minWidth={450}
       spacing={2}
       justifyContent="flex-start">
+
+      <Modal open={error !== ""} onClose={() => setError("")}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 300,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4
+          }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Error while generating text
+          </Typography>
+        </Box>
+      </Modal>
+
       <Typography variant="h5">OpenAI Text Generator</Typography>
 
       <TextField
