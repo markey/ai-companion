@@ -4,9 +4,11 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
+import SettingsIcon from "@mui/icons-material/Settings"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
+import IconButton from "@mui/material/IconButton"
 import Input from "@mui/material/Input"
 import Modal from "@mui/material/Modal"
 import Slider from "@mui/material/Slider"
@@ -137,7 +139,6 @@ function IndexPopup(): JSX.Element {
       minWidth={450}
       spacing={2}
       justifyContent="flex-start">
-
       <Modal open={error !== ""} onClose={() => setError("")}>
         <Box
           sx={{
@@ -157,7 +158,15 @@ function IndexPopup(): JSX.Element {
         </Box>
       </Modal>
 
-      <Typography variant="h5">OpenAI Text Generator</Typography>
+      <Stack direction="row" justifyContent="space-between">
+        <Typography variant="h5">OpenAI Text Generator</Typography>
+
+        <IconButton onClick={() => chrome.runtime.openOptionsPage()}>
+          <Tooltip title="Settings">
+            <SettingsIcon />
+          </Tooltip>
+        </IconButton>
+      </Stack>
 
       <TextField
         label="Prompt"
