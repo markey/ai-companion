@@ -14,7 +14,6 @@ npm run build
 
 Then, in Chrome, go to `chrome://extensions` and click "Load unpacked" and select the `build/chrome-mv3-prod` directory. 
 
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
 ### Usage
 
 1. Create an account at [OpenAI](https://beta.openai.com/).
