@@ -4,6 +4,19 @@ This is a Chrome extension that provides access to the OpenAI GPT-3 API ("Bring 
 
 ### Installation
 
+Run the following:
+
+```bash
+pnpm build
+# or
+npm run build
+```
+
+Then, in Chrome, go to `chrome://extensions` and click "Load unpacked" and select the `build/chrome-mv3-prod` directory. 
+
+This should create a production bundle for your extension, ready to be zipped and published to the stores.
+### Usage
+
 1. Create an account at [OpenAI](https://beta.openai.com/).
 
 2. Copy your OpenAI API key and paste it in the extension options page.
