@@ -1,10 +1,11 @@
 {
-  "name": "ai-reworder-extension",
-  "displayName": "Ai reworder extension",
+  "name": "ai-companion",
+  "displayName": "AI Companion",
   "version": "0.0.0",
   "description": "A OpenAI GPT-3 AI extension.",
   "author": "Mark Kretschmann <kretschmann@kde.org>",
   "packageManager": "pnpm@7.13.1",
+  "private": true,
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build"
