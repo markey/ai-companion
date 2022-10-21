@@ -67,7 +67,6 @@ function IndexPopup(): JSX.Element {
   })
 
   const DEFAULT_OPENAI_PARAMS = {
-    model: "text-davinci-002",
     max_tokens: 256,
     top_p: 1,
     frequency_penalty: 0,
@@ -79,7 +78,8 @@ function IndexPopup(): JSX.Element {
     const params = {
       ...DEFAULT_OPENAI_PARAMS,
       ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
-      ...{ temperature: temperature }
+      ...{ temperature: temperature },
+      ...{ model: await storage.get("openai_model") }
     }
     const requestOptions = {
       method: "POST",
@@ -153,7 +153,7 @@ function IndexPopup(): JSX.Element {
             p: 4
           }}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Error while generating text
+            Error: Please check your API key
           </Typography>
         </Box>
       </Modal>
