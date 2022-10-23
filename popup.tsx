@@ -136,7 +136,7 @@ function IndexPopup(): JSX.Element {
   return (
     <Stack
       direction="column"
-      minWidth={450}
+      minWidth={550}
       spacing={2}
       justifyContent="flex-start">
       <Modal open={error !== ""} onClose={() => setError("")}>
@@ -224,7 +224,7 @@ function IndexPopup(): JSX.Element {
         multiline
         InputProps={{ readOnly: true }}
         value={result}
-        minRows={6}
+        minRows={7}
       />
 
       <iframe
