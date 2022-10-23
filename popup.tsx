@@ -159,7 +159,7 @@ function IndexPopup(): JSX.Element {
       </Modal>
 
       <Stack direction="row" justifyContent="space-between">
-        <Typography variant="h5">OpenAI Text Generator</Typography>
+        <Typography variant="h5">AI Companion</Typography>
 
         <IconButton onClick={() => chrome.runtime.openOptionsPage()}>
           <Tooltip title="Settings">
