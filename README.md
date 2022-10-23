@@ -2,7 +2,7 @@
 
 This is a Chrome extension that provides access to the OpenAI GPT-3 API ("Bring your own key").
 
-![AI Companion screenshot](screenshot.png)
+![AI Companion screenshot](screenshot.png | width=798)
 
 ### Installation
 
