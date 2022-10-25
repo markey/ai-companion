@@ -4,21 +4,20 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
-import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
-import Divider from "@mui/material/Divider"
-import IconButton from "@mui/material/IconButton"
-import Input from "@mui/material/Input"
-import Modal from "@mui/material/Modal"
-import SettingsIcon from "@mui/icons-material/Settings"
-import Slider from "@mui/material/Slider"
-import Stack from "@mui/material/Stack"
-import TextField from "@mui/material/TextField"
-import Tooltip from "@mui/material/Tooltip"
-import Typography from "@mui/material/Typography"
-import { useState } from "react"
+import SettingsIcon from "@mui/icons-material/Settings";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import Slider from "@mui/material/Slider";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
 
-import { Storage } from "@plasmohq/storage"
+import { Storage } from "@plasmohq/storage";
 
 const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
 
