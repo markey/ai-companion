@@ -4,11 +4,15 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
+import HistoryIcon from "@mui/icons-material/History"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemText from "@mui/material/ListItemText"
 import Modal from "@mui/material/Modal"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
@@ -33,6 +37,9 @@ function getTextSelection(): string {
 }
 
 function IndexPopup(): JSX.Element {
+  const [openHistory, setOpenHistory] = useState(false)
+  const handleOpenHistory = () => setOpenHistory(true)
+  const handleCloseHistory = () => setOpenHistory(false)
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
@@ -165,14 +172,55 @@ function IndexPopup(): JSX.Element {
         </Box>
       </Modal>
 
+      <Modal open={openHistory} onClose={handleCloseHistory}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 500,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4
+          }}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            History
+          </Typography>
+          <Divider />
+          <List>
+            {history && history.length > 0 ? ( // If history exists and is not empty
+              history.map((item, index) => (
+                <ListItem key={index} button>
+                  <ListItemText primary={item} />
+                </ListItem>
+              ))
+            ) : (
+              <ListItem>
+                <ListItemText primary="No history" />
+              </ListItem>
+            )}
+          </List>
+        </Box>
+      </Modal>
+
       <Stack direction="row" justifyContent="space-between">
         <Typography variant="h5">AI Companion</Typography>
 
-        <IconButton onClick={() => chrome.runtime.openOptionsPage()}>
-          <Tooltip title="Settings">
-            <SettingsIcon />
-          </Tooltip>
-        </IconButton>
+        <Stack direction="row" spacing={1}>
+          <IconButton onClick={() => handleOpenHistory()}>
+            <Tooltip title="History">
+              <HistoryIcon />
+            </Tooltip>
+          </IconButton>
+
+          <IconButton onClick={() => chrome.runtime.openOptionsPage()}>
+            <Tooltip title="Settings">
+              <SettingsIcon />
+            </Tooltip>
+          </IconButton>
+        </Stack>
       </Stack>
 
       <TextField
