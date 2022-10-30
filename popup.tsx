@@ -154,6 +154,7 @@ function IndexPopup(): JSX.Element {
       minWidth={550}
       spacing={2}
       justifyContent="flex-start">
+      {/* Error modal */}
       <Modal open={error !== ""} onClose={() => setError("")}>
         <Box
           sx={{
@@ -220,12 +221,14 @@ function IndexPopup(): JSX.Element {
         <Typography variant="h5">AI Companion</Typography>
 
         <Stack direction="row" spacing={1}>
+          {/* History button */}
           <IconButton onClick={() => handleOpenHistory()}>
             <Tooltip title="History">
               <HistoryIcon />
             </Tooltip>
           </IconButton>
 
+          {/* Settings button */}
           <IconButton onClick={() => chrome.runtime.openOptionsPage()}>
             <Tooltip title="Settings">
               <SettingsIcon />
