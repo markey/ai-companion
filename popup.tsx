@@ -4,20 +4,20 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
-import SettingsIcon from "@mui/icons-material/Settings";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Modal from "@mui/material/Modal";
-import Slider from "@mui/material/Slider";
-import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import Tooltip from "@mui/material/Tooltip";
-import Typography from "@mui/material/Typography";
-import { useState } from "react";
+import SettingsIcon from "@mui/icons-material/Settings"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Divider from "@mui/material/Divider"
+import IconButton from "@mui/material/IconButton"
+import Modal from "@mui/material/Modal"
+import Slider from "@mui/material/Slider"
+import Stack from "@mui/material/Stack"
+import TextField from "@mui/material/TextField"
+import Tooltip from "@mui/material/Tooltip"
+import Typography from "@mui/material/Typography"
+import { useState } from "react"
 
-import { Storage } from "@plasmohq/storage";
+import { useStorage } from "@plasmohq/storage/hook"
 
 const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
 
@@ -39,7 +39,11 @@ function IndexPopup(): JSX.Element {
   const [error, setError] = useState("")
   const [temperature, setTemperature] = useState(0.5)
 
-  const storage = new Storage()
+  const [history, setHistory] = useStorage("openai_history", async (v) =>
+    v === undefined ? [] : v
+  )
+  const [key, setKey] = useStorage("openai_key")
+  const [model, setModel] = useStorage("openai_model")
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const activeTab = tabs[0]
@@ -78,13 +82,13 @@ function IndexPopup(): JSX.Element {
       ...DEFAULT_OPENAI_PARAMS,
       ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
       ...{ temperature: temperature },
-      ...{ model: await storage.get("openai_model") }
+      ...{ model: model }
     }
     const requestOptions = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + (await storage.get("openai_key"))
+        Authorization: "Bearer " + key
       },
       body: JSON.stringify(params)
     }
@@ -111,6 +115,10 @@ function IndexPopup(): JSX.Element {
       .join("\n") // Join line array into a string
 
     setResult(filteredText)
+
+    // Add to history
+    const newHistory = [filteredText, ...history]
+    setHistory(newHistory)
   }
 
   const handleTemperatureChange = (
