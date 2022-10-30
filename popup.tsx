@@ -4,6 +4,7 @@
  * (c) 2022 Mark Kretschmann <kretschmann@kde.org>
  *
  */
+import DeleteIcon from "@mui/icons-material/Delete"
 import HistoryIcon from "@mui/icons-material/History"
 import SettingsIcon from "@mui/icons-material/Settings"
 import Box from "@mui/material/Box"
@@ -172,6 +173,7 @@ function IndexPopup(): JSX.Element {
         </Box>
       </Modal>
 
+      {/* History modal page with vertical scrolling */}
       <Modal open={openHistory} onClose={handleCloseHistory}>
         <Box
           sx={{
@@ -185,23 +187,32 @@ function IndexPopup(): JSX.Element {
             boxShadow: 24,
             p: 4
           }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            History
-          </Typography>
+          <Stack direction="row" justifyContent="space-between">
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              History
+            </Typography>
+            <IconButton onClick={setHistory.bind(null, [])}>
+              <Tooltip title="Clear history">
+                <DeleteIcon />
+              </Tooltip>
+            </IconButton>
+          </Stack>
           <Divider />
-          <List>
-            {history && history.length > 0 ? ( // If history exists and is not empty
-              history.map((item, index) => (
-                <ListItem key={index} button>
-                  <ListItemText primary={item} />
+          <Box sx={{ overflowY: "scroll", height: 400 }}>
+            <List>
+              {history && history.length > 0 ? ( // If history exists and is not empty
+                history.map((item, index) => (
+                  <ListItem key={index} button>
+                    <ListItemText primary={item} />
+                  </ListItem>
+                ))
+              ) : (
+                <ListItem>
+                  <ListItemText primary="<empty>" />
                 </ListItem>
-              ))
-            ) : (
-              <ListItem>
-                <ListItemText primary="No history" />
-              </ListItem>
-            )}
-          </List>
+              )}
+            </List>
+          </Box>
         </Box>
       </Modal>
 
