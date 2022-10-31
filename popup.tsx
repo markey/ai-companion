@@ -12,7 +12,7 @@ import Button from "@mui/material/Button"
 import Divider from "@mui/material/Divider"
 import IconButton from "@mui/material/IconButton"
 import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
+import ListItemButton from "@mui/material/ListItemButton"
 import ListItemText from "@mui/material/ListItemText"
 import Modal from "@mui/material/Modal"
 import Slider from "@mui/material/Slider"
@@ -174,7 +174,7 @@ function IndexPopup(): JSX.Element {
         </Box>
       </Modal>
 
-      {/* History modal page with vertical scrolling */}
+      {/* History modal with vertical scrolling and clickable items */}
       <Modal open={openHistory} onClose={handleCloseHistory}>
         <Box
           sx={{
@@ -203,14 +203,15 @@ function IndexPopup(): JSX.Element {
             <List>
               {history && history.length > 0 ? ( // If history exists and is not empty
                 history.map((item, index) => (
-                  <ListItem key={index} button>
-                    <ListItemText primary={item} />
-                  </ListItem>
+                  // If item is clicked copy item to prompt and close the modal
+                  <ListItemButton key={index} onClick={() => {setPrompt(item); handleCloseHistory()}}>
+                    <ListItemText primary={index + 1 + ". " + item} />
+                  </ListItemButton>
                 ))
               ) : (
-                <ListItem>
+                <ListItemButton>
                   <ListItemText primary="<empty>" />
-                </ListItem>
+                </ListItemButton>
               )}
             </List>
           </Box>
