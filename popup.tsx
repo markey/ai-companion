@@ -45,8 +45,10 @@ function IndexPopup(): JSX.Element {
   const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
   const [result, setResult] = useState("")
   const [error, setError] = useState("")
-  const [temperature, setTemperature] = useState(0.5)
 
+  const [temperature, setTemperature] = useStorage("openai_temperature", async (v) =>
+  v === undefined ? 0.0 : v
+)
   const [history, setHistory] = useStorage("openai_history", async (v) =>
     v === undefined ? [] : v
   )
@@ -100,8 +102,6 @@ function IndexPopup(): JSX.Element {
       },
       body: JSON.stringify(params)
     }
-    console.log(params)
-    // console.log(requestOptions);
 
     setButtonText("Generating...")
     const response = await fetch(
@@ -129,13 +129,6 @@ function IndexPopup(): JSX.Element {
     setHistory(newHistory)
   }
 
-  const handleTemperatureChange = (
-    event: Event,
-    newValue: number | number[]
-  ) => {
-    setTemperature(newValue as number)
-  }
-
   /**
    * Evaluate code in sandboxed iframe.
    * @param {string} code The code to evaluate
@@ -146,6 +139,13 @@ function IndexPopup(): JSX.Element {
       console.log("EVAL output: " + event.data)
     })
     iframe.contentWindow.postMessage(code, "*")
+  }
+
+  const handleTemperatureChange = (
+    event: Event,
+    newValue: number | number[]
+  ) => {
+    setTemperature(newValue)
   }
 
   return (
@@ -278,7 +278,7 @@ function IndexPopup(): JSX.Element {
           max={1.0}
           marks
           valueLabelDisplay="auto"
-          defaultValue={temperature}
+          value={temperature}
           onChange={handleTemperatureChange}
         />
       </Stack>
