@@ -1,6 +1,6 @@
 ## AI Companion Chrome Extension
 
-This is a Chrome extension that provides a quick and easy way to access to GPT-3 from within your browser. It can be used as a handy alternative to the OpenAI Playground that is always available and doesn't require you to open a new tab.
+This is a Chrome extension that provides a quick and easy way to access GPT-3 from within your browser. It can be used as a handy alternative to the OpenAI Playground that is always available and doesn't require you to open a new tab.
 
 AI Companion uses the OpenAI GPT-3 API with your own API key ("Bring your own key").
 
