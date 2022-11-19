@@ -33,5 +33,7 @@ Then, in Chrome, go to `chrome://extensions` and click "Load unpacked" and selec
 ### Examples
 
 > Translate to English: {SELECTION}
+
 > Definition of {SELECTION}:
+
 > What is {SELECTION}?
