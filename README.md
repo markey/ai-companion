@@ -25,7 +25,7 @@ Then, in Chrome, go to `chrome://extensions` and click "Load unpacked" and selec
 
 ### Usage
 
-1. Select some text on a webpage.
+1. Select some text on a webpage (this is optional, you can also just type in the text box).
 2. Open the extension popup (click the extension icon in the toolbar).
 3. In the popup, the selected text will be displayed as {SELECTION}.
 4. Give some instructions to GPT-3 and click "Generate".
