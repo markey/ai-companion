@@ -53,6 +53,7 @@ function IndexPopup(): JSX.Element {
     v === undefined ? [] : v
   )
   const [key, setKey] = useStorage("openai_key")
+  const [maxTokens, setMaxTokens] = useStorage("openai_max_tokens")
   const [model, setModel] = useStorage("openai_model")
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
@@ -80,7 +81,6 @@ function IndexPopup(): JSX.Element {
   })
 
   const DEFAULT_OPENAI_PARAMS = {
-    max_tokens: 256,
     top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0
@@ -92,6 +92,7 @@ function IndexPopup(): JSX.Element {
       ...DEFAULT_OPENAI_PARAMS,
       ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
       ...{ temperature: temperature },
+      ...{ max_tokens: maxTokens },
       ...{ model: model }
     }
     const requestOptions = {
@@ -145,7 +146,7 @@ function IndexPopup(): JSX.Element {
     event: Event,
     newValue: number | number[]
   ) => {
-    setTemperature(newValue)
+    setTemperature(newValue as number)
   }
 
   return (
