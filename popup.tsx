@@ -46,9 +46,10 @@ function IndexPopup(): JSX.Element {
   const [result, setResult] = useState("")
   const [error, setError] = useState("")
 
-  const [temperature, setTemperature] = useStorage("openai_temperature", async (v) =>
-  v === undefined ? 0.0 : v
-)
+  const [temperature, setTemperature] = useStorage(
+    "openai_temperature",
+    async (v) => (v === undefined ? 0.0 : v)
+  )
   const [history, setHistory] = useStorage("openai_history", async (v) =>
     v === undefined ? [] : v
   )
@@ -80,20 +81,16 @@ function IndexPopup(): JSX.Element {
     )
   })
 
-  const DEFAULT_OPENAI_PARAMS = {
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0
-  }
-
   // Generate a prompt using OpenAI's GPT-3 API
   async function createCompletion() {
     const params = {
-      ...DEFAULT_OPENAI_PARAMS,
-      ...{ prompt: prompt.replaceAll("{SELECTION}", selection) },
-      ...{ temperature: temperature },
-      ...{ max_tokens: maxTokens },
-      ...{ model: model }
+      prompt: prompt.replaceAll("{SELECTION}", selection),
+      temperature: temperature,
+      max_tokens: maxTokens,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+      model: model
     }
     const requestOptions = {
       method: "POST",
@@ -205,7 +202,12 @@ function IndexPopup(): JSX.Element {
               {history && history.length > 0 ? ( // If history exists and is not empty
                 history.map((item, index) => (
                   // If item is clicked copy item to prompt and close the modal
-                  <ListItemButton key={index} onClick={() => {setPrompt(item); handleCloseHistory()}}>
+                  <ListItemButton
+                    key={index}
+                    onClick={() => {
+                      setPrompt(item)
+                      handleCloseHistory()
+                    }}>
                     <ListItemText primary={index + 1 + ". " + item} />
                   </ListItemButton>
                 ))
