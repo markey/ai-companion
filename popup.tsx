@@ -24,8 +24,6 @@ import { useState } from "react"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-const GENERATE_BUTTON_TEXT = "Generate (Ctrl+Enter)"
-
 let selection = ""
 
 /**
@@ -42,7 +40,7 @@ function IndexPopup(): JSX.Element {
   const handleOpenHistory = () => setOpenHistory(true)
   const handleCloseHistory = () => setOpenHistory(false)
   const [prompt, setPrompt] = useState("")
-  const [buttonText, setButtonText] = useState(GENERATE_BUTTON_TEXT)
+  const [buttonText, setButtonText] = useState("Generate (Ctrl+Enter)")
   const [result, setResult] = useState("")
   const [error, setError] = useState("")
 
@@ -101,12 +99,13 @@ function IndexPopup(): JSX.Element {
       body: JSON.stringify(params)
     }
 
+    const oldButtonText = buttonText
     setButtonText("Generating...")
     const response = await fetch(
       "https://api.openai.com/v1/completions",
       requestOptions
     )
-    setButtonText(GENERATE_BUTTON_TEXT)
+    setButtonText(oldButtonText)
 
     const responseJson = await response.json()
     // Check for errors
