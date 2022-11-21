@@ -37,8 +37,6 @@ function getTextSelection(): string {
 
 function IndexPopup(): JSX.Element {
   const [openHistory, setOpenHistory] = useState(false)
-  const handleOpenHistory = () => setOpenHistory(true)
-  const handleCloseHistory = () => setOpenHistory(false)
   const [prompt, setPrompt] = useState("")
   const [buttonText, setButtonText] = useState("Generate (Ctrl+Enter)")
   const [result, setResult] = useState("")
@@ -172,7 +170,7 @@ function IndexPopup(): JSX.Element {
       </Modal>
 
       {/* History modal with vertical scrolling and clickable items */}
-      <Modal open={openHistory} onClose={handleCloseHistory}>
+      <Modal open={openHistory}>
         <Box
           sx={{
             position: "absolute",
@@ -205,7 +203,7 @@ function IndexPopup(): JSX.Element {
                     key={index}
                     onClick={() => {
                       setPrompt(item)
-                      handleCloseHistory()
+                      setOpenHistory(false)
                     }}>
                     <ListItemText primary={index + 1 + ". " + item} />
                   </ListItemButton>
@@ -225,7 +223,7 @@ function IndexPopup(): JSX.Element {
 
         <Stack direction="row" spacing={1}>
           {/* History button */}
-          <IconButton onClick={() => handleOpenHistory()}>
+          <IconButton onClick={() => setOpenHistory(true)}>
             <Tooltip title="History">
               <HistoryIcon />
             </Tooltip>
