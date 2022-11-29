@@ -21,7 +21,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 function OptionsIndex() {
   const [key, setKey] = useStorage("openai_key")
   const [model, setModel] = useStorage("openai_model", async (v) =>
-    v === undefined ? "text-davinci-002" : v
+    v === undefined ? "text-davinci-003" : v
   )
   const [maxTokens, setMaxTokens] = useStorage("openai_max_tokens", async (v) =>
     v === undefined ? 256 : v
@@ -52,6 +52,7 @@ function OptionsIndex() {
           <MenuItem value="text-curie-001">text-curie-001</MenuItem>
           <MenuItem value="text-davinci-001">text-davinci-001</MenuItem>
           <MenuItem value="text-davinci-002">text-davinci-002</MenuItem>
+          <MenuItem value="text-davinci-003">text-davinci-003</MenuItem>
         </Select>
       </FormControl>
       <Stack direction="row" spacing={2} justifyContent="flex-start">
